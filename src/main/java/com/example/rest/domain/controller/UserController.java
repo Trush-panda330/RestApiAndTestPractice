@@ -21,8 +21,9 @@ public class UserController {
 	private final UserServiceImpl userService;
 	
 	@GetMapping
-	public List<User> findAll() {
-		return userService.findAllUser();
+	public ResponseEntity<List<User>> findAll() {
+		List<User> users = userService.findAllUser();
+		return ResponseEntity.ok(users);
 	}
 	
 	@GetMapping("/{id}")
@@ -30,5 +31,7 @@ public class UserController {
 		User user = userService.findByIdUser(id);
 		return ResponseEntity.ok(user);
 	}
+	
+	
 
 }
