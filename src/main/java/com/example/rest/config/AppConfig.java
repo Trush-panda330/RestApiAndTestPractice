@@ -4,7 +4,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@MapperScan("com.example.rest.domain.mapper.UserMapper")
+@MapperScan("com.example.rest.domain.mapper")
 public class AppConfig {
 	
 }
