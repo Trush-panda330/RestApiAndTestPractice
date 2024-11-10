@@ -18,6 +18,6 @@ public interface UserMapper {
 	
 	int update(@Param("user") User user);
 	
-	int delete(@Param("id") Long id);
+	int deleteById(@Param("id") Long id);
 
 }
