@@ -10,9 +10,9 @@ public interface UserServiceIF {
 	
 	User findByIdUser(Long id);
 	
-	void insertUser(User user);
+	int  insertUser(User user);
 	
-	void updateUser(User user);
+	int updateUser(User user);
 	
-	void deleteUser(Long id);
+	int deleteUser(Long id);
 }
