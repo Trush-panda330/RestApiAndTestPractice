@@ -5,8 +5,9 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class DeleteResponse {
-	private String message;   //削除メッセージ
-	private boolean success;  //成功フラグ
+public class ErrorResponse {
+	private String message;
+	private Long userId;
+	private boolean success;
 
 }
