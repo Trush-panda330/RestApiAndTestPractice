@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.rest.domain.model.User;
+import com.example.rest.domain.response.ApiUserResponse;
 import com.example.rest.domain.service.UserServiceImpl;
 
 import lombok.RequiredArgsConstructor;
@@ -25,9 +26,10 @@ public class UserController {
 	private final UserServiceImpl userService;
 	
 	@GetMapping
-	public ResponseEntity<List<User>> findAll() {
+	public ResponseEntity<ApiUserResponse<List<User>>> findAll() {
 		List<User> users = userService.findAllUser();
-		return ResponseEntity.ok(users);
+		ApiUserResponse<List<User>> response = new ApiUserResponse<List<User>>(users, "Users feched successfully", true);
+		return ResponseEntity.ok(response);
 	}
 	
 	@GetMapping("/{id}")
