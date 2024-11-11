@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.rest.domain.mapper.UserMapper">
-<select id="findAll" resultType="com.example.rest.domain.model.User">
-	SELECT id, name, age, address FROM user
-</select>
-<select id="findById" resultType="com.example.rest.domain.model.User">
-	SELECT id, name, age, address FROM user WHERE id = #{id}
- </select>
- <insert id="insert" useGeneratedKeys="true" keyProperty="id">
- 	INSERT INTO user (name, age, address) VALUES (#{user.name}, #{user.age}, #{user.address})
- </insert>
- <update id="update">
- 	UPDATE user SET name = #{user.name}, age = #{user.age}, address = #{user.address}
- </update>
- <delete id="deleteById">
- 	DELETE FROM user WHERE id = #{id}
- </delete>
+    
+    <select id="findAll" resultType="com.example.rest.domain.model.User">
+        SELECT id, name, age, address FROM user
+    </select>
+    
+    <select id="findById" resultType="com.example.rest.domain.model.User">
+        SELECT id, name, age, address FROM user WHERE id = #{id}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO user (name, age, address) 
+        VALUES (#{user.name}, #{user.age}, #{user.address})
+    </insert>
+
+    <update id="update">
+        UPDATE user SET name = #{user.name}, age = #{user.age}, address = #{user.address} WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE FROM user WHERE id = #{id}
+    </delete>
 </mapper>
