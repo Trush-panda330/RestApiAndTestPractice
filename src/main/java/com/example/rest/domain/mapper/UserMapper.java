@@ -9,15 +9,15 @@ import com.example.rest.domain.model.User;
 
 @Mapper
 public interface UserMapper {
-	
-	List<User> findAll();
-	
-	User findById(@Param("id") Long id);
-	
-	int insert(@Param("user") User user);
-	
-	int update(@Param("user") User user);
-	
-	int deleteById(@Param("id") Long id);
+    
+    List<User> findAll();
+    
+    User findById(@Param("id") Long id);
+    
+    int insert(@Param("user") User user);
+    
+    int update(@Param("id") Long id, @Param("user") User user);
+    
+    int deleteById(@Param("id") Long id);
 
 }
