@@ -28,7 +28,7 @@ public class UserRepository {
 	}
 	
 	public int update(User user) {
-		return userMapper.update(user);
+		return userMapper.update(user.getId(),user);
 	}
 	
 	public int deleteById(Long id) {
