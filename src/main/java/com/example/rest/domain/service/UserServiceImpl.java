@@ -1,6 +1,7 @@
 package com.example.rest.domain.service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.stereotype.Service;
 
@@ -37,7 +38,10 @@ public class UserServiceImpl implements UserServiceIF {
      */
     @Override
     public User findByIdUser(Long id) {
-        return userRepository.findByIdUser(id);
+    	User user = userRepository.findByIdUser(id);
+    	if(user == null) 
+    		throw new NoSuchElementException("ID：" + id + "のユーザーは見つかりませんでした。");
+       return user;
     }
 
     /**
