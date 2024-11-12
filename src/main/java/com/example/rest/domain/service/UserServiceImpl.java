@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.rest.domain.model.User;
 import com.example.rest.domain.repository.UserRepository;
@@ -16,6 +17,7 @@ import lombok.RequiredArgsConstructor;
  */
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class UserServiceImpl implements UserServiceIF {
 
     private final UserRepository userRepository;
