@@ -54,10 +54,44 @@ public class UserServiceImplTest {
 		assertNotNull(result);
 		assertEquals(1, result.size());
 		assertEquals("uetak", result.get(0).getName());
-		assertEquals("tokio", result.get(0).getAddress());
+		assertEquals("Osaka", result.get(0).getAddress());
 		
 	}
+	@Test
+	void testFindByIdUser() {
+		when(userRepository.findByIdUser(1L)).thenReturn(user);
+		
+		User result = userService.findByIdUser(1L);
+		
+		assertNotNull(result);
+		assertEquals("uetak", result.getName());
+		assertEquals(28,result.getAge());
+	}
 	
-	
+	@Test
+	void testInsertUser() {
+		when(userRepository.create(user)).thenReturn(1);
+		
+		int actual = userService.insertUser(user);
+		
+		assertEquals(1, actual);
+	}
 
+	@Test
+	void testUpdate() {
+		when(userRepository.update(user)).thenReturn(1);
+	
+		int result = userService.updateUser(user);
+		
+		assertEquals(1, result);
+	}
+	
+	@Test
+	void testDeleteUser() {
+		when(userRepository.deleteById(1L)).thenReturn(1);
+		
+		int result = userService.deleteUser(1L);
+		
+		assertEquals(1, result);
+	}
 }
