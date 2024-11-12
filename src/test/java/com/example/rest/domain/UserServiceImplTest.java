@@ -130,9 +130,49 @@ public class UserServiceImplTest {
 		
 	}
 	
+	//存在しないIDでの削除処理をし例外が発生するか確認
+	@Test
+	void testDeleteUserWithInvalidId() {
+		when(userRepository.deleteById(anyLong())).thenReturn(0); //0は0件の削除つまり失敗を意味する
+		
+		int result = userService.deleteUser(99L);
+		assertEquals(0,result);
+	}
 	
 	
+	//境界地テスト
+	//空の名前や負の年齢でユーザーを作成し、挿入が失敗するか確認
+	@Test
+	void tesuInsertUserWithInvalidData() {
+		User invalidUser = new User(4L, "", -1, "Unknow");
+		
+		when(userRepository.create(invalidUser)).thenThrow(IllegalArgumentException.class);
+		
+		assertThrows(IllegalArgumentException.class, () -> userService.insertUser(invalidUser));
+	}
 	
 	
+	/*トランザクション管理のテスト
+	 * トランザクション管理のテストは複数の操作を行い、
+	 * 途中で例外などが発生したときに全てがロールバックされるかを確認する*/
+//	@Test
+//	@Transactional
+//	void testTransactionalOperationRollBack() {
+//	    // 最初の操作は成功、2つ目の操作で例外を発生させるようにモック
+//	    when(userRepository.create(user1)).thenReturn(1);  // user1の挿入が成功するようにモック
+//	    when(userRepository.create(user2)).thenThrow(RuntimeException.class);  // user2の挿入で例外を発生させる
+//
+//	    // 例外がスローされることを確認
+//	    assertThrows(RuntimeException.class, () -> {
+//	        userService.insertUser(user1);
+//	        userService.insertUser(user2);  // ここで例外発生し、ロールバック
+//	    });
+//
+//	    // ユーザー1の挿入が1回呼ばれ、ユーザー2の挿入は呼ばれないことを確認
+//	    verify(userRepository, times(1)).create(user1);  // user1は1回呼ばれるべき
+//	    verify(userRepository, times(0)).create(user2);  // user2は例外が発生して呼ばれないべき
+//	}
 	
+	//これ意味不明で死んだ
+
 }
