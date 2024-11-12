@@ -75,5 +75,25 @@ public class UserRepositoryTest {
 		assertEquals(1, result);
 		verify(userMapper,times(1)).insert(any(User.class));
 	}
+	
+	@Test
+	void testUpdate() {
+		when(userMapper.update(anyLong(), any(User.class))).thenReturn(1);
+		
+		int result = userRepository.update(new User(1L,"kaoru", 37,"Tokyo"));
+		
+		assertEquals(1, result);
+		verify(userMapper, times(1)).update(eq(1L),any(User.class));
+	}
+	
+	@Test
+	void testDeleteById() {
+		when(userMapper.deleteById(1L)).thenReturn(1);
+		
+		int result = userRepository.deleteById(1L);
+		
+		assertEquals(1,result);
+		verify(userMapper,times(1)).deleteById(1L);
+	}
 
 }
