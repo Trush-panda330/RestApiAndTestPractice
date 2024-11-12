@@ -60,14 +60,16 @@ public class UserServiceImplTest {
 	 * */
 	@Test
 	void testFindAllUser() {
-		when(userRepository.findAll()).thenReturn(List.of(user1));
+//		when(userRepository.findAll()).thenReturn(List.of(user1));
+		when(userRepository.findAll()).thenReturn(userList);
 
 		List<User> result = userService.findAllUser();
 
 		assertNotNull(result);
-		assertEquals(1, result.size());
+		assertEquals(3, result.size());
 		assertEquals("uetak", result.get(0).getName());
 		assertEquals("Osaka", result.get(0).getAddress());
+		assertEquals("thina",result.get(2).getName());
 
 	}
 
