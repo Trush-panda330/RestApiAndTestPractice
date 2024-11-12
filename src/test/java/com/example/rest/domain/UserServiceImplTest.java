@@ -1,9 +1,11 @@
 package com.example.rest.domain;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -110,4 +112,27 @@ public class UserServiceImplTest {
 
 		assertEquals(1, result);
 	}
+	
+	//存在しないユーザーIDを指定して例外が発生するかのテスト
+	@Test
+	void testFindbyIdUserWithInvalidId() {
+		// anyLong()で指定された任意のlong型の引数を受け取る場合に
+		//その戻り値としてnullを返すように設定している
+		when(userRepository.findByIdUser(anyLong())).thenReturn(null);
+		
+		/*この行ではfindByIdUser(99L)を実行した際に、
+		 * NosuchElementExceptionがスローされることを確認している*/
+		/*もっと具体的にassertThrows()について説明すると
+		 * 第一引数に発生すべき例外の方を
+		 * 第二引数に実行されるコードをラムダ式書いている。*/
+		assertThrows(NoSuchElementException.class, () -> userService.findByIdUser(99L));
+		/* 個々のラムダ式では引数が埋まることはまあないらしいのでこういう形で使うと覚えておこう*/
+		
+	}
+	
+	
+	
+	
+	
+	
 }
