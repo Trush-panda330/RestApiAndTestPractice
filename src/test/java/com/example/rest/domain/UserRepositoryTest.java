@@ -15,12 +15,18 @@ import com.example.rest.domain.mapper.UserMapper;
 import com.example.rest.domain.model.User;
 import com.example.rest.domain.repository.UserRepository;
 
+/**
+ * UserRepositoryTestクラス
+ * UserRepositoryのメソッドが期待通りに動作するかをテストするクラス。
+ * もっくしたUserMapperを使用してデータベースとのやり取りをシミュレートする。
+ */
 public class UserRepositoryTest {
 	
 	@Mock
 	//UserMapper userMapperをモックオブジェクトに
 	private UserMapper userMapper;
 	
+	//
 	private UserRepository userRepository;
 	private User testUser;
 	
@@ -29,6 +35,10 @@ public class UserRepositoryTest {
 		MockitoAnnotations.openMocks(this);
 		//テスト対象のUserRepositoryのインスタンスを作成
 		//userRepositoryはモックオブジェクトuserMapperをコンストラクタに渡し、初期化される。
+		/* この記述は 変数宣言 private UserRepository userRepositoryに
+		 * アノテーション＠InjectMocks を付けることで省略ができる。 が、そうすればいいというものでもない。
+		 * 詳しくはNotionのノートに。
+		 * */
 		userRepository = new UserRepository(userMapper);
 		
 		//共通のテスト用Userオブジェクトの初期化
@@ -95,5 +105,6 @@ public class UserRepositoryTest {
 		assertEquals(1,result);
 		verify(userMapper,times(1)).deleteById(1L);
 	}
-
+	
+	
 }
