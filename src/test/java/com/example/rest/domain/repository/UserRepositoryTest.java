@@ -138,4 +138,78 @@ public class UserRepositoryTest {
 		verify(userMapper,times(1)).deleteById(1L);
 	}
 
+	
+	/**
+	 * {@link UserRepository#findByIdUser(Long)} のテストです。<br>
+	 * 無効なID（存在しないID）でユーザーを検索した場合、nullが返されることを確認する。
+	 */
+	@Test
+	void testFindByIdWithInvalidId() {
+		//無効なID(99L)を指定して、findByIdUserがnullを返すことを確認
+		when(userMapper.findById(99L)).thenReturn(null);
+		
+		//メソッド実行と結果取得
+		User result = userRepository.findByIdUser(99L);
+		
+		//結果の検証。assertNullの第二引数はテストが失敗したときに表示されるエラー
+		assertNull(result, "無効なIDの場合はnullが返ることを期待");
+	}
+	
+	/**
+	 * {@link UserRepository#create(User)}のテストです。
+	 * ユーザー名が空文字のUserを挿入しようとし失敗して0が返されることを確認する。
+	 */
+	@Test
+	void testCreateWithEmptyName() {
+		//名前が空文字のUserを作成
+		User invalidUser = new User(null, "", 20, "Tokyo");
+		//userMapper.insertが無効なユーザーに対して0を返すようにモックを設定
+		when(userMapper.insert(invalidUser)).thenReturn(0);
+		
+		int result = userRepository.create(invalidUser);
+		//挿入が失敗し、０が変えることを期待して検証
+		assertEquals(0, result,"無効なデータの場合、挿入が失敗して0が返ることを期待");
+	}
+	
+	/**
+	 * 対象：{@link UserRepository#create(User)}
+	 * 
+	 * テスト内容：トランザクション中に例外が発生した場合、正常にロールバックされることを検証する。
+	 * userMapper.insert()が例外をスローするように設定し、create()実行時に例外が発生するか検証する。
+	 * 期待結果：RuntimeExceptionがスローされ、insertメソッドが一回呼び出される。
+	 */
+	@Test
+	void testTransactionalOperationRolback() {
+		when(userMapper.insert(any(User.class))).thenThrow(RuntimeException.class);
+		
+		assertThrows(RuntimeException.class,() -> userRepository.create(testUser),"RuntimeExceptionがスローされることを期待する");
+		/*
+		 * これ必要なのか？と思ったけどinsert()メソッドを呼び出したことによって
+		 * RuntimeExceptionがスローされたことが明確になるから必要らしい。
+		 */
+		verify(userMapper,times(1)).insert(any(User.class));
+		}
+	
+	/**
+	 * テスト対象：UserRepository{@link #testFindAll()}
+	 * 
+	 * テスト内容：findAll()メソッドの結果が正しい順序と内容かどうかを検証する。
+	 * userMapper.findAll()が二つのユーザーオブジェクトを返すように設定し、結果リストの内容を確認する。
+	 * 期待結果：リストのサイズが2で、順序通りにユーザーの名前を含んでいる。
+	 */
+	@Test
+	void testFindAllUserOrder() {
+		//モックが二つのユーザーを返すように設定
+		when(userMapper.findAll()).thenReturn(List.of(
+				new User(1L, "user1", 30, "Tokyo"),
+				new User(2L, "user2", 25, "Osaka")
+				));
+		
+		List<User> users = userRepository.findAll();
+		
+		assertEquals(2, users.size());
+		assertEquals("user1", users.get(0).getName());
+		assertEquals("user2", users.get(1).getName());
+	}
+	
 }
