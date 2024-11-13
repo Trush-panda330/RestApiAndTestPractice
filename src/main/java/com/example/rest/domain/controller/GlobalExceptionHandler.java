@@ -52,7 +52,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler
     public ResponseEntity<ApiUserResponse<String>> handleGeneralException(Exception ex) {
-        ApiUserResponse<String> response = new ApiUserResponse<>(null, "サーバーエラーが発生しました。", false);
+        ApiUserResponse<String> response = new ApiUserResponse<>(null, "予想外のエラーが発生しました", false);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
     }
 }
