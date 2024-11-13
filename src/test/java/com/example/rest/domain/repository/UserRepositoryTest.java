@@ -15,9 +15,9 @@ import com.example.rest.domain.mapper.UserMapper;
 import com.example.rest.domain.model.User;
 
 /**
- * UserRepositoryTestクラス
- * UserRepositoryのメソッドが期待通りに動作するかをテストするクラス。
- * もっくしたUserMapperを使用してデータベースとのやり取りをシミュレートする。
+ * 対象クラス：{@link UserRepository}<p>
+ * UserRepositoryのメソッドが期待通りに動作するかをテストするクラス。<br>
+ * モックしたUserMapperを使用してデータベースとのやり取りをシミュレートする。
  */
 public class UserRepositoryTest {
 	
@@ -44,8 +44,9 @@ public class UserRepositoryTest {
 		testUser = new User(null,"uetak",28,"Osaka");
 	}
 	
+	
 	/**
-	 * {@link UserRepository#findAll()}のテストです。
+	 * 対象メソッド：{@link UserRepository#findAll()}<p>
 	 * モックで設定したデータが正しく取得されるかを確認します。
 	 */
 	@Test
@@ -62,7 +63,7 @@ public class UserRepositoryTest {
 	}
 	
 	/**
-	 * {@link UserRepository#findByIdUser(Long)}のテスト
+	 * 対象メソッド：{@link UserRepository#findByIdUser(Long)}<p>
 	 * 指定IDで取得したUserが期待通りか確認する。
 	 */
 	@Test
@@ -78,7 +79,7 @@ public class UserRepositoryTest {
 	}
 	
 	/**
-	 * {@link UserRepository#create(User)}のテストです。<br>
+	 * 対象メソッド：{@link UserRepository#create(User)}<p>
 	 * 新しいUserを作成する際の処理が期待通りか確認する。
 	 */
 	@Test
@@ -100,7 +101,7 @@ public class UserRepositoryTest {
 	}
 	
 	/**
-	 * {@link UserRepository#update(User)}のテストです。<br>
+	 * 対象メソッド：{@link UserRepository#update(User)}<p>
 	 * 既存のUser情報を更新する処理が期待通りか確認します。
 	 */
 	@Test
@@ -125,7 +126,7 @@ public class UserRepositoryTest {
 	}
 	
 	/**
-	 * {@link UserRepository#deleteById(Long)}のテストです。<br>
+	 * 対象メソッド：{@link UserRepository#deleteById(Long)}<p>
 	 * 指定IDのUserを削除する処理が期待通りか確認する。
 	 */
 	@Test
@@ -140,7 +141,7 @@ public class UserRepositoryTest {
 
 	
 	/**
-	 * {@link UserRepository#findByIdUser(Long)} のテストです。<br>
+	 * 対象メソッド：{@link UserRepository#findByIdUser(Long)}<p>
 	 * 無効なID（存在しないID）でユーザーを検索した場合、nullが返されることを確認する。
 	 */
 	@Test
@@ -156,7 +157,7 @@ public class UserRepositoryTest {
 	}
 	
 	/**
-	 * {@link UserRepository#create(User)}のテストです。
+	 * 対象メソッド：{@link UserRepository#create(User)}<p>
 	 * ユーザー名が空文字のUserを挿入しようとし失敗して0が返されることを確認する。
 	 */
 	@Test
@@ -172,8 +173,7 @@ public class UserRepositoryTest {
 	}
 	
 	/**
-	 * 対象：{@link UserRepository#create(User)}
-	 * 
+	 * 対象メソッド：{@link UserRepository#create(User)}<p>
 	 * テスト内容：トランザクション中に例外が発生した場合、正常にロールバックされることを検証する。
 	 * userMapper.insert()が例外をスローするように設定し、create()実行時に例外が発生するか検証する。
 	 * 期待結果：RuntimeExceptionがスローされ、insertメソッドが一回呼び出される。
@@ -191,8 +191,7 @@ public class UserRepositoryTest {
 		}
 	
 	/**
-	 * テスト対象：UserRepository{@link #testFindAll()}
-	 * 
+	 * 対象メソッド：UserRepository{@link #testFindAll()}<p>
 	 * テスト内容：findAll()メソッドの結果が正しい順序と内容かどうかを検証する。
 	 * userMapper.findAll()が二つのユーザーオブジェクトを返すように設定し、結果リストの内容を確認する。
 	 * 期待結果：リストのサイズが2で、順序通りにユーザーの名前を含んでいる。
